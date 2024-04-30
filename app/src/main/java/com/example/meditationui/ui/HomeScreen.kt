@@ -107,6 +107,7 @@ fun HomeScreen(){
             
 
         }
+
         BottomMenu(items = listOf(
             BottomMenuContent("Home", R.drawable.ic_home),
             BottomMenuContent("Meditate", R.drawable.ic_bubble),
@@ -400,7 +401,11 @@ fun FeatureItem(
             Text(
 
                 text = feature.title,
-                style = TextStyle(),
+                style = TextStyle(
+                    color = TextWhite,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 22.sp
+                ),
                 lineHeight = 26.sp,
                 modifier = Modifier.align(Alignment.TopStart)
             )
