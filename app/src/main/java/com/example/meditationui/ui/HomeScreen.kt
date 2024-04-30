@@ -41,6 +41,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.meditationui.BottomMenuContent
 import com.example.meditationui.Feature
 import com.example.meditationui.ui.theme.AquaBlue
 import com.example.meditationui.ui.theme.ButtonBlue
@@ -56,6 +57,9 @@ import com.example.meditationui.ui.theme.Beige3
 import com.example.meditationui.ui.theme.BlueViolet1
 import com.example.meditationui.ui.theme.BlueViolet2
 import com.example.meditationui.ui.theme.BlueViolet3
+import com.example.meditationui.ui.theme.LightGreen1
+import com.example.meditationui.ui.theme.LightGreen2
+import com.example.meditationui.ui.theme.LightGreen3
 import com.example.meditationui.ui.theme.OrangeYellow1
 import com.example.meditationui.ui.theme.OrangeYellow2
 import com.example.meditationui.ui.theme.OrangeYellow3
@@ -73,28 +77,107 @@ fun HomeScreen(){
             FeatureSection(features = listOf(
                 Feature(
                     title = "Sleep meditation",
-                    androidx.core.R.drawable.notification_bg,
+                    R.drawable.ic_headphone,
                     BlueViolet1,
                     BlueViolet2,
                     BlueViolet3
                 ),
                 Feature(
+                    title = "Tips for sleeping",
+                    R.drawable.ic_videocam,
+                    LightGreen1,
+                    LightGreen2,
+                    LightGreen3
+                ),
+                Feature(
                     title = "Night island",
-                    androidx.core.R.drawable.ic_call_decline,
+                    R.drawable.ic_headphone,
                     OrangeYellow1,
                     OrangeYellow2,
                     OrangeYellow3
                 ),
                 Feature(
                     title = "Calming sounds",
-                    androidx.core.R.drawable.notification_icon_background,
+                    R.drawable.ic_headphone,
                     Beige1,
                     Beige2,
                     Beige3
                 )
             ))
+            
 
         }
+        BottomMenu(items = listOf(
+            BottomMenuContent("Home", R.drawable.ic_home),
+            BottomMenuContent("Meditate", R.drawable.ic_bubble),
+            BottomMenuContent("Sleep", R.drawable.ic_moon),
+            BottomMenuContent("Music", R.drawable.ic_music),
+            BottomMenuContent("Profile", R.drawable.ic_profile),
+        ),
+            modifier = Modifier.align(Alignment.BottomCenter)
+
+        )
+    }
+}
+// 89726884
+
+@Composable
+fun BottomMenu(
+    items: List<BottomMenuContent>,
+    modifier: Modifier = Modifier,
+    activeHighlightColor: Color = ButtonBlue,
+    activeTextColor: Color = Color.White,
+    inactiveTextColor: Color = AquaBlue,
+    initialSelectedItemIndex: Int = 0
+){
+  var selectedItemIndex by remember {
+      mutableStateOf(initialSelectedItemIndex)
+  }
+    Row(
+        horizontalArrangement = Arrangement.SpaceAround,
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(DeepBlue)
+            .padding(15.dp),
+    ) {
+        items.forEachIndexed { index, item ->  }
+    }
+}
+
+@Composable
+fun BottomMenuItem(
+    item: BottomMenuContent,
+    isSelected: Boolean = false,
+    activeHighlightColor: Color = ButtonBlue,
+    activeTextColor: Color = Color.White,
+    inactiveTextColor: Color = AquaBlue,
+    onItemClick: () -> Unit
+){
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
+        modifier = Modifier.clickable { 
+            onItemClick()
+        }
+    ) {
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier
+                .clip(RoundedCornerShape(10.dp))
+                .background(if (isSelected) activeHighlightColor else Color.Transparent)
+                .padding(10.dp)
+        ) {
+            Icon(painter = painterResource(id = item.iconId), 
+                contentDescription = item.title,
+                tint = if (isSelected) activeTextColor else inactiveTextColor,
+                modifier = Modifier.size(20.dp)
+            
+            )
+        }
+        Text(text = item.title,
+            color = if (isSelected) activeTextColor else inactiveTextColor
+            )
     }
 }
 
@@ -127,7 +210,7 @@ fun GreetingSection(
                     fontSize = 14.sp,
                 ))
         }
-        Icon(painter = painterResource(id = androidx.core.R.drawable.ic_call_answer_video), contentDescription = "Search",
+        Icon(painter = painterResource(id = R.drawable.ic_search), contentDescription = "Search",
             tint = androidx.compose.ui.graphics.Color.White,
             modifier = Modifier.size(24.dp)
 
@@ -201,7 +284,7 @@ fun CurrentMeditation(
                 .background(ButtonBlue)
                 .padding(10.dp)
         ) {
-           Icon(painter = painterResource(id = androidx.core.R.drawable.notification_bg_normal), contentDescription = "Play",
+           Icon(painter = painterResource(id = R.drawable.ic_play), contentDescription = "Play",
                tint = TextWhite,
                modifier = Modifier.size(16.dp)
 
