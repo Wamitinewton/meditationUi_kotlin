@@ -141,7 +141,18 @@ fun BottomMenu(
             .background(DeepBlue)
             .padding(15.dp),
     ) {
-        items.forEachIndexed { index, item ->  }
+        items.forEachIndexed { index, item ->
+
+            BottomMenuItem(item = item,
+                isSelected = index == selectedItemIndex,
+                activeHighlightColor = activeHighlightColor,
+                activeTextColor = activeTextColor,
+                inactiveTextColor = inactiveTextColor
+                ) {
+                selectedItemIndex = index
+
+            }
+        }
     }
 }
 
